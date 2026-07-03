@@ -167,29 +167,3 @@ Answer
 ```
 
 ---
-
-## Interview Question
-
-**If an interviewer asks:** "Explain the architecture of your PDF RAG chatbot."
-
-**You should be able to explain:**
-```text
-PDF
- ↓
-Text Extraction
- ↓
-Chunking
- ↓
-Embeddings
- ↓
-Vector Database
- ↓
-Similarity Search
- ↓
-Context Retrieval
- ↓
-LLM
- ↓
-Answer
-```
-That's the complete high-level architecture.
