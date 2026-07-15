@@ -41,15 +41,17 @@ def add_documents(texts: List[str], embeddings: List[List[float]]) -> None:
 def similarity_search(query: str, k: int = 3) -> List[Tuple[str, float]]:
     """Search the collection for the *k* most similar chunks to the query.
 
-    The function converts the query to an embedding using the same OpenAI model
-    and lets Chroma compute cosine similarity internally.
+    The function converts the query to an embedding using our custom
+    get_embeddings function and lets Chroma compute cosine similarity internally.
 
     Returns:
         A list of (chunk_text, similarity_score) pairs, ordered by relevance.
     """
+    from services.embeddings import get_embeddings
     collection = get_collection()
+    query_embedding = get_embeddings([query])[0]
     results = collection.query(
-        query_texts=[query],
+        query_embeddings=[query_embedding],
         n_results=k,
     )
     # Chroma returns parallel lists: documents and distances (where distance = 1 - cosine similarity).

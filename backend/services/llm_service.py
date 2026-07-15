@@ -31,11 +31,17 @@ def generate_answer(question: str, context_chunks: List[str]) -> str:
     """
     # Combine the retrieved chunks into a single context block.
     context_text = "\n\n".join(context_chunks)
-    system_prompt = (
-        "You are a helpful assistant that answers questions using ONLY the provided context. "
-        "If the answer cannot be derived from the context, respond with "
-        "'I don't know based on the given document.'"
-    )
+    system_prompt = """
+You are an AI assistant for answering questions about uploaded PDF documents.
+
+Use ONLY the provided context to answer.
+
+Guidelines:
+- Answer clearly and naturally.
+- If the answer is present across multiple context chunks, combine the information into one response.
+- If the answer is partially available, provide the best answer possible.
+- Only respond with "I don't know based on the given document." if the information is completely missing from the context.
+"""
     user_prompt = f"Context:\n{context_text}\n\nQuestion: {question}"
     
     response = client.chat.completions.create(

@@ -30,8 +30,10 @@ export function App() {
     const formData = new FormData();
     formData.append('file', file);
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+
     try {
-      const response = await fetch('http://127.0.0.1:8000/upload-pdf', {
+      const response = await fetch(`${API_URL}/upload-pdf`, {
         method: 'POST',
         body: formData,
       });
@@ -60,8 +62,10 @@ export function App() {
     setChatHistory((prev) => [...prev, { role: 'user', text: userQuestion }]);
     setIsAsking(true);
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+
     try {
-      const response = await fetch('http://127.0.0.1:8000/ask', {
+      const response = await fetch(`${API_URL}/ask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
