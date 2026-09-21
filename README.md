@@ -2,6 +2,69 @@
 
 A beginner-friendly Retrieval-Augmented Generation (RAG) PDF chatbot.
 
+## Requirements
+
+- Python 3.10 or newer
+- Node.js 18 or newer and npm
+- An OpenAI API key
+
+## How to Run (The Right Method)
+
+To correctly run this application, you must run both the backend (Python FastAPI) and the frontend (React Vite) servers simultaneously in **two separate terminals**.
+
+### Step 1: Configure and Start the Backend
+
+1. Create a file named `.env` inside the `backend` folder and add your OpenAI API key:
+   ```env
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+2. Open your **first terminal**, navigate to the backend directory, set up the Python virtual environment, and run the server:
+
+   ```powershell
+   cd backend
+   python -m venv .venv
+   .\.venv\Scripts\activate
+   pip install -r requirements.txt
+   python app.py
+   ```
+
+   *The backend API will start at `http://127.0.0.1:8000`*
+
+### Step 2: Start the Frontend
+
+1. Open a **second, new terminal** (leave the first one running) and navigate to the frontend directory.
+2. Install the Node dependencies and run the development server:
+
+   ```powershell
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+   *The frontend will start at `http://localhost:5173`*
+
+### Step 3: Use the Application
+
+1. Open your web browser and go to `http://localhost:5173`.
+2. Select a PDF file and click **Upload & Index PDF**.
+3. Once indexed, you can start asking questions about the document!
+
+---
+
+**Troubleshooting (Windows PowerShell):**
+- If you get an error when running `.\.venv\Scripts\activate`, your system might be blocking scripts. Run this command as Administrator in PowerShell to fix it:
+  `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
+- To run the frontend in production mode, use `npm run build` and `npm run preview` in the frontend directory.
+
+## API Endpoints
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `POST` | `/upload-pdf` | Upload and index a PDF file |
+| `POST` | `/ask` | Ask a question using `{"question": "..."}` |
+
+FastAPI interactive documentation is available at `http://127.0.0.1:8000/docs` while the backend is running.
+
 ## Project Structure
 
 ```text
@@ -113,10 +176,9 @@ Final Answer
 ## Complete Tech Stack
 
 ### Frontend
-- Next.js
+- Vite
 - React
 - Tailwind CSS
-- Shadcn UI
 
 ### Backend
 - Python
