@@ -70,7 +70,7 @@ async def ask_question(payload: dict):
     if not question:
         raise HTTPException(status_code=400, detail="'question' field is required.")
     # Retrieve top‑k relevant chunks from Chroma
-    context_chunks = retrieve_context(question, top_k=3)
+    context_chunks = retrieve_context(question, top_k=10)
     # Generate the final answer using the LLM
     answer = generate_answer(question, context_chunks)
     return JSONResponse(content={"answer": answer, "retrieved_chunks": context_chunks})
